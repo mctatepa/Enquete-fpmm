@@ -1,3 +1,17 @@
+// Make monochrome colors
+var pieColors = (function () {
+    var colors = [],
+        base = Highcharts.getOptions().colors[0],
+        i;
+
+    for (i = 0; i < 10; i += 1) {
+        // Start out with a darkened base color (negative brighten), and end
+        // up with a much brighter color
+        colors.push(Highcharts.color(base).brighten((i - 3) / 7).get());
+    }
+    return colors;
+}());
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const chart_1 = Highcharts.chart('bar_chart_B1', {
@@ -31,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         series: [{
             name: 'Paneliste',
-            data: [70, 53.3, 27.1, 16.8, 5.9, 5.1, 5.0, 0.7]
+            data: [70, 53.3, 27.1, 16.8, 5.9, 5.1, 5.0, 0.7],
+            color: "#F37335",
         }]
     });
 
@@ -51,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         plotOptions: {
             pie: {
                 allowPointSelect: true,
-                cursor: 'pointer',
+                cursor: 'pointer',              
                 dataLabels: {
                     enabled: true,
                     format: '<b>{point.name}</b> : {point.percentage:.1f} %'
@@ -66,7 +81,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 {name: "Non",
                 y:59.0},
                 {name: "Ne sait pas",
-                y:19.1}]
+                y:19.1
+            }]
         }]
     });
 
