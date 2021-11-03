@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text: 'Q1. Parmi les moyens de transport suivants, quel est votre mode privilégié pour vos déplacements quotidiens ?'
         },
         subtitle: {
-            text: 'Base de 1025'
+            text: 'Base de 1025 personnes'
         },
         xAxis: {
             categories: ['Voiture', "Marche à pied (+ d'une 1/2 h / jour)","Les transports en commun (bus, métro, tram, train)" ,'Vélo / Vélo électrique', "2 roues motorisé (scooters, motos)", "Covoiturage", "Trottinette électrique", "Autres engins de déplacement personnel mécaniques ou motorisés"]
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
-            name: 'Paneliste',
+            name: 'Répondants mode de déplacement privilégié',
             data: [70, 53.3, 27.1, 16.8, 5.9, 5.1, 5.0, 0.7],
             color: "#F37335",
         }]
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text: "Q2. Avez-vous l'intention d'acheter une trottinette électrique pour les fêtes de Noël ou d'ici les 2 prochains mois ?"
         },
         subtitle: {
-            text: 'Base de 1025'
+            text: 'Base de 1025 personnes'
         },
         tooltip: {
             valueSuffix: " %"
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text: "Q3. Concernant la trottinette électrique que vous avez l'intention d'acheter, s'agit-il :"
         },
         subtitle: {
-            text: 'Base de 224'
+            text: 'Base de 224 personnes'
         },
         tooltip: {
             valueSuffix: " %"
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text: "Q4. Pour quelle utilisation et quels types de déplacement sera destinée la trottinette électrique que vous souhaitez acheter ?"
         },
         subtitle: {
-            text: 'Base de 224'
+            text: 'Base de 224 personnes'
         },
         tooltip: {
             valueSuffix: " %"
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 name:"Pour un usage loisirs",
                 y:33}, 
                 {name: "Pour un usage déplacements domicile-travail (ou études)",
-                y:27.7},
+                y:23.7},
                 {name: "Pour les 2 (loisirs et travail)",
                 y:36.4},
                 {name: "Autre",
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text: "Q5. Quel montant envisagez-vous de payer pour l'achat de la trottinette électrique?"
         },
         subtitle: {
-            text: 'Base de 224'
+            text: 'Base de 224 personnes'
         },
         tooltip: {
             valueSuffix: " %"
@@ -188,13 +188,13 @@ document.addEventListener('DOMContentLoaded', function () {
             name: "Pourcentage de paneliste",
             data: [{
                 name:"Moins de 250 €",
-                y:28.8}, 
+                y:16.5}, 
                 {name: "De 250 € à 499 €",
-                y:65.7},
+                y:60.2},
                 {name: "De 500 € à 699 €",
-                y:5.5},
+                y:19.8},
                 {name: "Plus de 700 €",
-                y:5.5}]
+                y:3.4}]
         }]
     });
 

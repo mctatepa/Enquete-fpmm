@@ -18,7 +18,7 @@ p.titre{
   text-align: center;
 }
 header{
-  background-image: url("/Users/leo/Desktop/SI : Stage/SML/Highchats_V1/images/trottinette.jpg");
+  background-image: url("../images/trottinette.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -41,7 +41,7 @@ img{
 footer{
   width: 100vw;
   height: 20vh;
-  background-color: black;
+  background-color: #f9b401;
 }
 
 .container {
