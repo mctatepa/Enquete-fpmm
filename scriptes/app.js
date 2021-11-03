@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'bar'
         },
         title: {
-            text: 'B1. Parmi les moyens de transport suivants, quel est votre mode privilégié pour vos déplacements quotidiens ?'
+            text: 'Q1. Parmi les moyens de transport suivants, quel est votre mode privilégié pour vos déplacements quotidiens ?'
         },
         subtitle: {
             text: 'Base de 1025'
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'pie'
         },
         title: {
-            text: "B13. Avez-vous l'intention d'acheter une trottinette électrique pour les fêtes de Noël ou d'ici les 2 prochains mois ?"
+            text: "Q2. Avez-vous l'intention d'acheter une trottinette électrique pour les fêtes de Noël ou d'ici les 2 prochains mois ?"
         },
         subtitle: {
             text: 'Base de 1025'
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'pie'
         },
         title: {
-            text: "B14. Concernant la trottinette électrique que vous avez l'intention d'acheter, s'agit-il :"
+            text: "Q3. Concernant la trottinette électrique que vous avez l'intention d'acheter, s'agit-il :"
         },
         subtitle: {
             text: 'Base de 224'
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'pie'
         },
         title: {
-            text: "B15. Pour quelle utilisation et quels types de déplacement sera destinée la trottinette électrique que vous souhaitez acheter ?"
+            text: "Q4. Pour quelle utilisation et quels types de déplacement sera destinée la trottinette électrique que vous souhaitez acheter ?"
         },
         subtitle: {
             text: 'Base de 224'
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'pie'
         },
         title: {
-            text: "B16. Quel montant envisagez-vous de payer pour l'achat de la trottinette électrique?"
+            text: "Q5. Quel montant envisagez-vous de payer pour l'achat de la trottinette électrique?"
         },
         subtitle: {
             text: 'Base de 224'
