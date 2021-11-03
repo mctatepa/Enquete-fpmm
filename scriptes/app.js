@@ -199,3 +199,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+scroll_button = document.querySelector("#container_chevron")
+bar_chart = document.querySelector("#bar_chart_B1")
+scroll_button.addEventListener(
+    'click',
+    () => {
+        bar_chart.scrollIntoView({ block: 'start',  behavior: 'smooth' });
+        console.log('oui')
+    })

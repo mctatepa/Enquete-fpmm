@@ -17,6 +17,9 @@ div.pie{
 p.titre{
   text-align: center;
 }
+.intro{
+  height: 50vh;
+}
 header{
   background-image: url("../images/trottinette.jpg");
   background-repeat: no-repeat;
@@ -24,7 +27,7 @@ header{
   background-position: center;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   display: flex;
   color: white;
   height: 100vh;
@@ -47,8 +50,9 @@ footer{
 .container {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 8%;
   height: 10vh;
+  cursor: pointer;
 }
 .chevron {
   position: absolute;
