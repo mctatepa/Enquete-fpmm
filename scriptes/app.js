@@ -201,8 +201,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 Highcharts.theme = {
-    colors: ['#F37335', '#f9b401', '#ea6416', '#DDDF00', '#24CBE5', '#64E572',
-             '#50B432', '#FFF263', '#6AF9C4', '#058DC7'],
+    colors: ['#F37335', '#f9b401', '#FFF263', '#24CBE5', '#64E572', '#DDDF00',
+             '#50B432', '#ea6416', '#6AF9C4', '#058DC7'],
     title: {
         style: {
             color: '#000',
