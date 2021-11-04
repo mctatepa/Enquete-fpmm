@@ -12,6 +12,66 @@ var pieColors = (function () {
     return colors;
 }());
 
+(function (H) {
+
+    var pendingRenders = [];
+
+    // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+    function isElementInViewport(el) {
+
+        var rect = el.getBoundingClientRect();
+
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (
+                window.innerHeight ||
+                document.documentElement.clientHeight
+            ) &&
+            rect.right <= (
+                window.innerWidth ||
+                document.documentElement.clientWidth
+            )
+        );
+    }
+
+    H.wrap(H.Series.prototype, 'render', function deferRender(proceed) {
+        var series = this,
+            renderTo = this.chart.container.parentNode;
+
+        // It is appeared, render it
+        if (isElementInViewport(renderTo) || !series.options.animation) {
+            proceed.call(series);
+
+        // It is not appeared, halt renering until appear
+        } else  {
+            pendingRenders.push({
+                element: renderTo,
+                appear: function () {
+                    proceed.call(series);
+                }
+            });
+        }
+    });
+
+    function recalculate() {
+        pendingRenders.forEach(function (item) {
+            if (isElementInViewport(item.element)) {
+                item.appear();
+                H.erase(pendingRenders, item);
+            }
+        });
+    }
+
+    if (window.addEventListener) {
+        ['DOMContentLoaded', 'load', 'scroll', 'resize']
+            .forEach(function (eventType) {
+                addEventListener(eventType, recalculate, false);
+            });
+    }
+
+}(Highcharts));
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const chart_1 = Highcharts.chart('bar_chart_B1', {
@@ -44,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
+            showInLegend: false,
             name: 'Répondants mode de déplacement privilégié',
             data: [70, 53.3, 27.1, 16.8, 5.9, 5.1, 5.0, 0.7],
             color: "#F37335",
