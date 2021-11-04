@@ -32,6 +32,7 @@ header{
   color: white;
   height: 100vh;
   width: 100vw;
+  margin-bottom: 70px;
 }
 img{
   position: absolute;
@@ -42,9 +43,21 @@ img{
 }
 
 footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 20vh;
   background-color: #f9b401;
+  color: white;
+
+}
+a{
+  text-decoration: none;
+}
+
+footer .link{
+  font-size: 3rem;
 }
 
 .container {

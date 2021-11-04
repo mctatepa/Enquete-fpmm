@@ -200,6 +200,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+Highcharts.theme = {
+    colors: ['#F37335', '#f9b401', '#ea6416', '#DDDF00', '#24CBE5', '#64E572',
+             '#50B432', '#FFF263', '#6AF9C4', '#058DC7'],
+    title: {
+        style: {
+            color: '#000',
+            font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+        }
+    },
+    subtitle: {
+        style: {
+            color: '#666666',
+            font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+        }
+    },
+    legend: {
+        itemStyle: {
+            font: '9pt Trebuchet MS, Verdana, sans-serif',
+            color: 'black'
+        },
+        itemHoverStyle:{
+            color: 'gray'
+        }
+    }
+};
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
 scroll_button = document.querySelector("#container_chevron")
 bar_chart = document.querySelector("#bar_chart_B1")
 scroll_button.addEventListener(
