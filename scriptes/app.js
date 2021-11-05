@@ -111,12 +111,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }]
     });
 
+    let piechart = document.querySelector("#pie_chart_B13")
+    let piechart_info = document.querySelector(".info_B13")
+
     const pie_1 = Highcharts.chart('pie_chart_B13', {
         chart: {
             type: 'pie',
+            with: 300,
             events: {
             	drilldown: function (e) {
-                	console.log('Clicked point', e.point.name);
+                    if (e.point.name == "Oui") {
+                        console.log(this);
+                        piechart.classList.add('animation_pie_drill_b13')
+                        piechart_info.classList.add('animation_pie_info_b13')
+                        piechart.classList.remove('animation_pie_drill_b13_revers')
+                        piechart_info.classList.remove('animation_pie_info_b13_revers')                        
+                    }
+                },
+                drillup: function (e) {
+                    console.log(this);
+                    piechart.classList.add('animation_pie_drill_b13_revers')
+                    piechart_info.classList.add('animation_pie_info_b13_revers')
+                    piechart.classList.remove('animation_pie_drill_b13')
+                    piechart_info.classList.remove('animation_pie_info_b13')
                 }
             }
         },
@@ -148,7 +165,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 drilldown: "ST oui"
             }, 
                 {name: "Non",
-                y:59.0},
+                y:59.0,
+                drilldown: "genre"
+            },
                 {name: "Ne sait pas",
                 y:19.1
             }]
@@ -175,7 +194,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         "Oui, pour un ami",
                         2.9
                     ],
-                ]}
+                ]},
+                {
+                    name: "genre",
+                    id: "genre",
+                    data: [
+                        [
+                            "Femme",
+                            64.5
+                        ],
+                                            [
+                            "Homme",
+                            5.6
+                        ],
+                    ]}
+                
             ]}
     
     });

@@ -5,7 +5,44 @@ h1.titre{
   margin-bottom: 20px;
   padding-top: 50px;
 }
+strong{
+  font-weight: 700;
+}
 
+.info_B13{
+  display: flex;
+  justify-content: center;
+  width:50%; 
+  height:400px;
+  transform: translateX(100%);
+  transform-origin: right;
+}
+.info_B13_display{
+  display: block;
+}
+ul{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+  list-style: none;
+  height: 100%;
+}
+li{
+  list-style-position: inside;
+  padding-left: 50px;
+  font-size: 1.5rem;
+}
+
+ul li::before {
+  content: "\2022";
+  font-size: 3rem;
+  color: #f9b401;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+}
 body{
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -132,4 +169,56 @@ footer{
     opacity: 0;
     transform: translateY(4.8rem) scale(0.5);
  }
+}
+
+.pie_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+#pie_chart_B13{
+  width:50%; 
+  height:400px;
+  transform: translateX(50%)
+}
+.pie_chart_B13_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.animation_pie_drill_b13{
+  animation: anime_st 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.animation_pie_drill_b13_revers{
+  animation: anime_st_revers 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.animation_pie_info_b13{
+  animation: anime_st_info 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.animation_pie_info_b13_revers{
+  animation: anime_st_info_revers 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes anime_st {
+  0%   { transform: translateX(50%); }
+  100% { transform: translateX(0%); }
+}
+@keyframes anime_st_revers {
+  0%   { transform: translateX(0%);}
+  100% { transform: translateX(50%); }
+}
+
+@keyframes anime_st_info {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(0%); }
+}
+@keyframes anime_st_info_revers {
+  0%   { transform: translateX(0%);}
+  100% { transform: translateX(100%);}
 }
