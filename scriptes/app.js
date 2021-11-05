@@ -113,7 +113,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const pie_1 = Highcharts.chart('pie_chart_B13', {
         chart: {
-            type: 'pie'
+            type: 'pie',
+            events: {
+            	drilldown: function (e) {
+                	console.log('Clicked point', e.point.name);
+                }
+            }
         },
         title: {
             text: "Q2. Avez-vous l'intention d'acheter une trottinette électrique pour les fêtes de Noël ou d'ici les 2 prochains mois ?"
@@ -135,16 +140,44 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
-            name: "Pourcentage de paneliste",
+            allowPointSelect : true,
+            name: "Pourcentage de répondants",
             data: [{
                 name:"Oui",
-                y:21.8}, 
+                y:21.8,
+                drilldown: "ST oui"
+            }, 
                 {name: "Non",
                 y:59.0},
                 {name: "Ne sait pas",
                 y:19.1
             }]
-        }]
+        }],
+        drilldown: {
+            series: [
+                {
+                name: "ST oui",
+                id: "ST oui",
+                data: [
+                    [
+                        "Oui, pour moi ou pour mon /ma conjoint(e)",
+                        8.5
+                    ],
+                                        [
+                        "Oui, pour mon adolescent",
+                        5.6
+                    ],
+                    [
+                        "Oui, pour un autre adulte du cercle familial",
+                        4.8
+                    ],
+                    [
+                        "Oui, pour un ami",
+                        2.9
+                    ],
+                ]}
+            ]}
+    
     });
 
     const pie_2 = Highcharts.chart('pie_chart_B14', {
@@ -171,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
-            name: "Pourcentage de paneliste",
+            name: "Pourcentage de répondants",
             data: [{
                 name:"D'un renouvellement ",
                 y:28.8}, 
@@ -206,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
-            name: "Pourcentage de paneliste",
+            name: "Pourcentage de répondants",
             data: [{
                 name:"Pour un usage loisirs",
                 y:33}, 
@@ -246,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         series: [{
-            name: "Pourcentage de paneliste",
+            name: "Pourcentage de répondants",
             data: [{
                 name:"Moins de 250 €",
                 y:16.5}, 
@@ -286,6 +319,7 @@ Highcharts.theme = {
         }
     }
 };
+
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
 
