@@ -111,29 +111,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }]
     });
 
-    let piechart = document.querySelector("#pie_chart_B13")
-    let piechart_info = document.querySelector(".info_B13")
+    function anime_info(pie, info){
+        console.log(this);
+        pie.classList.add('animation_pie_drill_b13')
+        info.classList.add('animation_pie_info_b13')
+        pie.classList.remove('animation_pie_drill_b13_revers')
+        info.classList.remove('animation_pie_info_b13_revers')
+    }
+
+    function anime_info_remove(pie, info) {
+        console.log(this);
+        pie.classList.add('animation_pie_drill_b13_revers')
+        info.classList.add('animation_pie_info_b13_revers')
+        pie.classList.remove('animation_pie_drill_b13')
+        info.classList.remove('animation_pie_info_b13')        
+    }
+
+    let piechart_B13 = document.querySelector("#pie_chart_B13")
+    let piechart_info_B13 = document.querySelector(".info_B13")
+    let piechart_info_1_B13 = document.querySelector("#info_1_B13")
+    let piechart_info_2_B13 = document.querySelector("#info_2_B13")
 
     const pie_1 = Highcharts.chart('pie_chart_B13', {
         chart: {
             type: 'pie',
-            with: 300,
             events: {
             	drilldown: function (e) {
                     if (e.point.name == "Oui") {
-                        console.log(this);
-                        piechart.classList.add('animation_pie_drill_b13')
-                        piechart_info.classList.add('animation_pie_info_b13')
-                        piechart.classList.remove('animation_pie_drill_b13_revers')
-                        piechart_info.classList.remove('animation_pie_info_b13_revers')                        
+                        piechart_info_2_B13.style.opacity = 0
+                        piechart_info_1_B13.style.opacity = 1
+                        anime_info(piechart_B13, piechart_info_B13)                       
+                    }
+                    else if (e.point.name == "Non") {
+                        piechart_info_2_B13.style.opacity = 1
+                        piechart_info_1_B13.style.opacity = 0
+                        anime_info(piechart_B13, piechart_info_B13) 
                     }
                 },
                 drillup: function (e) {
-                    console.log(this);
-                    piechart.classList.add('animation_pie_drill_b13_revers')
-                    piechart_info.classList.add('animation_pie_info_b13_revers')
-                    piechart.classList.remove('animation_pie_drill_b13')
-                    piechart_info.classList.remove('animation_pie_info_b13')
+                    anime_info_remove(piechart_B13, piechart_info_B13)
                 }
             }
         },
@@ -205,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ],
                                             [
                             "Homme",
-                            5.6
+                            35.5
                         ],
                     ]}
                 
@@ -213,9 +229,31 @@ document.addEventListener('DOMContentLoaded', function () {
     
     });
 
+    let piechart_B14 = document.querySelector("#pie_chart_B14")
+    let piechart_info_B14 = document.querySelector(".info_B14")
+    let piechart_info_1_B14 = document.querySelector("#info_1_B14")
+    let piechart_info_2_B14 = document.querySelector("#info_2_B14")
+
     const pie_2 = Highcharts.chart('pie_chart_B14', {
         chart: {
-            type: 'pie'
+            type: 'pie',
+            events: {
+            	drilldown: function (e) {
+                    if (e.point.name == "D'un renouvellement") {
+                        piechart_info_1_B14.style.opacity = 1
+                        piechart_info_2_B14.style.opacity = 0
+                        anime_info(piechart_B14, piechart_info_B14)                       
+                    }
+                    else if (e.point.name == "D'un 1er achat") {
+                        piechart_info_1_B14.style.opacity = 0
+                        piechart_info_2_B14.style.opacity = 1
+                        anime_info(piechart_B14, piechart_info_B14) 
+                    }
+                },
+                drillup: function (e) {
+                    anime_info_remove(piechart_B14, piechart_info_B14)
+                }
+            }
         },
         title: {
             text: "Q3. Concernant la trottinette électrique que vous avez l'intention d'acheter, s'agit-il :"
@@ -239,13 +277,45 @@ document.addEventListener('DOMContentLoaded', function () {
         series: [{
             name: "Pourcentage de répondants",
             data: [{
-                name:"D'un renouvellement ",
-                y:28.8}, 
+                name:"D'un renouvellement",
+                y:28.8,
+                drilldown: "Revenu"}, 
                 {name: "D'un 1er achat",
-                y:65.7},
+                y:65.7,
+                drilldown: "genre"},
                 {name: "Ne sait pas",
                 y:5.5}]
-        }]
+        }],
+        drilldown: {
+            series: [
+                {
+                name: "Revenu",
+                id: "Revenu",
+                data: [
+                    [
+                        "Revenu mensuel net moins de 1800",
+                        46.1
+                    ],
+                                        [
+                        "Revenu mensuel net plus de 1800",
+                        53.9
+                    ],
+                ]},
+                {
+                    name: "genre",
+                    id: "genre",
+                    data: [
+                        [
+                            "Femme",
+                            70
+                        ],
+                                            [
+                            "Homme",
+                            30
+                        ],
+                    ]}
+                
+            ]}
     });
 
     const pie_3 = Highcharts.chart('pie_chart_B15', {
@@ -275,9 +345,11 @@ document.addEventListener('DOMContentLoaded', function () {
             name: "Pourcentage de répondants",
             data: [{
                 name:"Pour un usage loisirs",
-                y:33}, 
+                y:33,
+                drilldown: "test_edpm"}, 
                 {name: "Pour un usage déplacements domicile-travail (ou études)",
-                y:23.7},
+                y:23.7,
+                drilldown: "age"},
                 {name: "Pour les 2 (loisirs et travail)",
                 y:36.4},
                 {name: "Autre",
@@ -285,12 +357,75 @@ document.addEventListener('DOMContentLoaded', function () {
                 {name: "Ne sait pas",
                 y:3.3}
             ]
-        }]
+        }],
+        drilldown: {
+            series: [
+                {
+                name: "test_edpm",
+                id: "test_edpm",
+                data: [
+                    [
+                        "Jamais testé d’EDPM",
+                        53.2
+                    ],
+                                        [
+                        "A déja testé des EDPM",
+                        46.8
+                    ],
+                ]},
+                {
+                    name: "age",
+                    id: "age",
+                    data: [
+                        [
+                            "18-25 ans",
+                            36.9
+                        ],
+                                            [
+                            "Plus de 18-25 ans",
+                            63.1
+                        ],
+                    ]}
+                
+            ]}
     });
+
+
+
+    let piechart_B16 = document.querySelector("#pie_chart_B16")
+    let piechart_info_B16 = document.querySelector(".info_B16")
+    let piechart_info_1_B16 = document.querySelector("#info_1_B16")
+    let piechart_info_2_B16 = document.querySelector("#info_2_B16")
+    let piechart_info_3_B16 = document.querySelector("#info_3_B16")
 
     const pie_4 = Highcharts.chart('pie_chart_B16', {
         chart: {
-            type: 'pie'
+            type: 'pie',
+            events: {
+            	drilldown: function (e) {
+                    if (e.point.name == "Moins de 250 €") {
+                        piechart_info_1_B16.style.opacity = 1
+                        piechart_info_2_B16.style.opacity = 0
+                        piechart_info_3_B16.style.opacity = 0
+                        anime_info(piechart_B16, piechart_info_B16)                       
+                    }
+                    else if (e.point.name == "De 250 € à 499 €") {
+                        piechart_info_1_B16.style.opacity = 0
+                        piechart_info_2_B16.style.opacity = 1
+                        piechart_info_3_B16.style.opacity = 0
+                        anime_info(piechart_B16, piechart_info_B16) 
+                    }
+                    else if (e.point.name == "De 500 € à 699 €") {
+                        piechart_info_1_B16.style.opacity = 0
+                        piechart_info_2_B16.style.opacity = 0
+                        piechart_info_3_B16.style.opacity = 1
+                        anime_info(piechart_B16, piechart_info_B16) 
+                    }
+                },
+                drillup: function (e) {
+                    anime_info_remove(piechart_B16, piechart_info_B16)
+                }
+            }
         },
         title: {
             text: "Q5. Quel montant envisagez-vous de payer pour l'achat de la trottinette électrique?"
@@ -315,14 +450,75 @@ document.addEventListener('DOMContentLoaded', function () {
             name: "Pourcentage de répondants",
             data: [{
                 name:"Moins de 250 €",
-                y:16.5}, 
+                y:16.5,
+                drilldown: "genres_1"}, 
                 {name: "De 250 € à 499 €",
-                y:60.2},
+                y:60.2,
+                drilldown: "genres_2"},
                 {name: "De 500 € à 699 €",
-                y:19.8},
+                y:19.8,
+                drilldown: "genres_3"},
                 {name: "Plus de 700 €",
-                y:3.4}]
-        }]
+                y:3.4,
+                drilldown: "genres_4"}]
+        }],
+        drilldown: {
+            series: [
+                {
+                name: "genres_1",
+                id: "genres_1",
+                data: [
+                    [
+                        "Homme",
+                        13.4
+                    ],
+                                        [
+                        "Femme",
+                        20.6
+                    ],
+                ]},
+                {
+                    name: "genres_2",
+                    id: "genres_2",
+                    data: [
+                        [
+                            "Homme",
+                            63.3
+                        ],
+                                            [
+                            "Femme",
+                            56.7
+                        ],
+                    ]},
+                    {
+                        name: "genres_3",
+                        id: "genres_3",
+                        data: [
+                            [
+                                "Homme",
+                                18.8
+                            ],
+                                                [
+                                "Femme",
+                                21.1
+                            ],
+                        ]},
+                        {
+                            name: "genres_4",
+                            id: "genres_4",
+                            data: [
+                                [
+                                    "Homme",
+                                    4.6
+                                ],
+                                                    [
+                                    "Femme",
+                                    2
+                                ],
+                            ]},
+                
+            ]}
+        
     });
 
 });
