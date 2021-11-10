@@ -1,4 +1,51 @@
 // Make monochrome colors
+Highcharts.getSVG = function (charts) {
+    let top = 0;
+    let width = 0;
+
+    const groups = charts.map(chart => {
+        let svg = chart.getSVG();
+        // Get width/height of SVG for export
+        const svgWidth = +svg.match(
+            /^<svg[^>]*width\s*=\s*\"?(\d+)\"?[^>]*>/
+        )[1];
+        const svgHeight = +svg.match(
+            /^<svg[^>]*height\s*=\s*\"?(\d+)\"?[^>]*>/
+        )[1];
+
+        svg = svg
+            .replace(
+                '<svg',
+                '<g transform="translate(0,' + top + ')" '
+            )
+            .replace('</svg>', '</g>');
+
+        top += svgHeight;
+        width = Math.max(width, svgWidth);
+
+        return svg;
+    }).join('');
+
+    return `<svg height="${top}" width="${width}" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+            ${groups}
+        </svg>`;
+};
+
+Highcharts.exportCharts = function (charts, options) {
+
+    // Merge the options
+    options = Highcharts.merge(Highcharts.getOptions().exporting, options);
+
+    // Post to export server
+    Highcharts.post(options.url, {
+        filename: options.filename || 'chart',
+        type: options.type,
+        width: options.width,
+        svg: Highcharts.getSVG(charts)
+    });
+};
+
 var pieColors = (function () {
     var colors = [],
         base = Highcharts.getOptions().colors[0],
@@ -112,18 +159,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function anime_info(pie, info){
-        console.log(this);
-        pie.classList.add('animation_pie_drill_b13')
+        //console.log(this);
         info.classList.add('animation_pie_info_b13')
-        pie.classList.remove('animation_pie_drill_b13_revers')
         info.classList.remove('animation_pie_info_b13_revers')
     }
 
     function anime_info_remove(pie, info) {
-        console.log(this);
-        pie.classList.add('animation_pie_drill_b13_revers')
+        //console.log(this);
         info.classList.add('animation_pie_info_b13_revers')
-        pie.classList.remove('animation_pie_drill_b13')
         info.classList.remove('animation_pie_info_b13')        
     }
 
@@ -142,11 +185,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         piechart_info_1_B13.style.opacity = 1
                         anime_info(piechart_B13, piechart_info_B13)                       
                     }
-                    else if (e.point.name == "Non") {
-                        piechart_info_2_B13.style.opacity = 1
-                        piechart_info_1_B13.style.opacity = 0
-                        anime_info(piechart_B13, piechart_info_B13) 
-                    }
                 },
                 drillup: function (e) {
                     anime_info_remove(piechart_B13, piechart_info_B13)
@@ -154,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         title: {
-            text: "Q2. Avez-vous l'intention d'acheter une trottinette électrique pour les fêtes de Noël ou d'ici les 2 prochains mois ?"
+            text: "Q2. Avez-vous l'intention d'acheter une trottinette électrique pour les fêtes de Noël ou d'ici les 2 prochains mois ?",
         },
         subtitle: {
             text: 'Base de 1025 personnes'
@@ -164,6 +202,20 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         plotOptions: {
             pie: {
+                point:{
+                    events: {
+                        select:function (e) {
+                            if (e.target.name == "Non") {
+                                piechart_info_2_B13.style.opacity = 1
+                                piechart_info_1_B13.style.opacity = 0
+                                anime_info(piechart_B13, piechart_info_B13) 
+                            }
+                        },
+                        unselect:function(e) {
+                            anime_info_remove(piechart_B13, piechart_info_B13) 
+                        }
+                    },
+                },
                 allowPointSelect: true,
                 cursor: 'pointer',              
                 dataLabels: {
@@ -182,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 
                 {name: "Non",
                 y:59.0,
-                drilldown: "genre"
+                drilldown: "lien_1"
             },
                 {name: "Ne sait pas",
                 y:19.1
@@ -211,21 +263,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         2.9
                     ],
                 ]},
-                {
-                    name: "genre",
-                    id: "genre",
-                    data: [
-                        [
-                            "Femme",
-                            64.5
-                        ],
-                                            [
-                            "Homme",
-                            35.5
-                        ],
-                    ]}
                 
-            ]}
+            ]},
     
     });
 
@@ -266,6 +305,25 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         plotOptions: {
             pie: {
+                point:{
+                    events: {
+                        select:function (e) {
+                            if (e.target.name == "D'un renouvellement") {
+                                piechart_info_1_B14.style.opacity = 1
+                                piechart_info_2_B14.style.opacity = 0
+                                anime_info(piechart_B14, piechart_info_B14)                       
+                            }
+                            else if (e.target.name == "D'un 1er achat") {
+                                piechart_info_1_B14.style.opacity = 0
+                                piechart_info_2_B14.style.opacity = 1
+                                anime_info(piechart_B14, piechart_info_B14) 
+                            }
+                        },
+                        unselect:function(e) {
+                            anime_info_remove(piechart_B14, piechart_info_B14)
+                        }
+                    },
+                },
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
@@ -279,43 +337,13 @@ document.addEventListener('DOMContentLoaded', function () {
             data: [{
                 name:"D'un renouvellement",
                 y:28.8,
-                drilldown: "Revenu"}, 
+                drilldown: "lien_1"}, 
                 {name: "D'un 1er achat",
                 y:65.7,
-                drilldown: "genre"},
+                drilldown: "lien_1"},
                 {name: "Ne sait pas",
                 y:5.5}]
         }],
-        drilldown: {
-            series: [
-                {
-                name: "Revenu",
-                id: "Revenu",
-                data: [
-                    [
-                        "Revenu mensuel net moins de 1800",
-                        46.1
-                    ],
-                                        [
-                        "Revenu mensuel net plus de 1800",
-                        53.9
-                    ],
-                ]},
-                {
-                    name: "genre",
-                    id: "genre",
-                    data: [
-                        [
-                            "Femme",
-                            70
-                        ],
-                                            [
-                            "Homme",
-                            30
-                        ],
-                    ]}
-                
-            ]}
     });
 
     const pie_3 = Highcharts.chart('pie_chart_B15', {
@@ -400,32 +428,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const pie_4 = Highcharts.chart('pie_chart_B16', {
         chart: {
-            type: 'pie',
-            events: {
-            	drilldown: function (e) {
-                    if (e.point.name == "Moins de 250 €") {
-                        piechart_info_1_B16.style.opacity = 1
-                        piechart_info_2_B16.style.opacity = 0
-                        piechart_info_3_B16.style.opacity = 0
-                        anime_info(piechart_B16, piechart_info_B16)                       
-                    }
-                    else if (e.point.name == "De 250 € à 499 €") {
-                        piechart_info_1_B16.style.opacity = 0
-                        piechart_info_2_B16.style.opacity = 1
-                        piechart_info_3_B16.style.opacity = 0
-                        anime_info(piechart_B16, piechart_info_B16) 
-                    }
-                    else if (e.point.name == "De 500 € à 699 €") {
-                        piechart_info_1_B16.style.opacity = 0
-                        piechart_info_2_B16.style.opacity = 0
-                        piechart_info_3_B16.style.opacity = 1
-                        anime_info(piechart_B16, piechart_info_B16) 
-                    }
-                },
-                drillup: function (e) {
-                    anime_info_remove(piechart_B16, piechart_info_B16)
-                }
-            }
+            type: 'pie'
         },
         title: {
             text: "Q5. Quel montant envisagez-vous de payer pour l'achat de la trottinette électrique?"
@@ -438,6 +441,33 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         plotOptions: {
             pie: {
+                point:{
+                    events: {
+                        select:function (e) {
+                            if (e.target.name == "Moins de 250 €") {
+                                piechart_info_1_B16.style.opacity = 1
+                                piechart_info_2_B16.style.opacity = 0
+                                piechart_info_3_B16.style.opacity = 0
+                                anime_info(piechart_B16, piechart_info_B16)                       
+                            }
+                            else if (e.target.name == "De 250 € à 499 €") {
+                                piechart_info_1_B16.style.opacity = 0
+                                piechart_info_2_B16.style.opacity = 1
+                                piechart_info_3_B16.style.opacity = 0
+                                anime_info(piechart_B16, piechart_info_B16) 
+                            }
+                            else if (e.target.name == "De 500 € à 699 €") {
+                                piechart_info_1_B16.style.opacity = 0
+                                piechart_info_2_B16.style.opacity = 0
+                                piechart_info_3_B16.style.opacity = 1
+                                anime_info(piechart_B16, piechart_info_B16) 
+                            }
+                        },
+                        unselect:function(e) {
+                            anime_info_remove(piechart_B16, piechart_info_B16) 
+                        }
+                    },
+                },
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
@@ -451,75 +481,24 @@ document.addEventListener('DOMContentLoaded', function () {
             data: [{
                 name:"Moins de 250 €",
                 y:16.5,
-                drilldown: "genres_1"}, 
+                drilldown: "lien_1"}, 
                 {name: "De 250 € à 499 €",
                 y:60.2,
-                drilldown: "genres_2"},
+                drilldown: "lien_2"},
                 {name: "De 500 € à 699 €",
                 y:19.8,
-                drilldown: "genres_3"},
+                drilldown: "lien_3"},
                 {name: "Plus de 700 €",
-                y:3.4,
-                drilldown: "genres_4"}]
+                y:3.4}]
         }],
-        drilldown: {
-            series: [
-                {
-                name: "genres_1",
-                id: "genres_1",
-                data: [
-                    [
-                        "Homme",
-                        13.4
-                    ],
-                                        [
-                        "Femme",
-                        20.6
-                    ],
-                ]},
-                {
-                    name: "genres_2",
-                    id: "genres_2",
-                    data: [
-                        [
-                            "Homme",
-                            63.3
-                        ],
-                                            [
-                            "Femme",
-                            56.7
-                        ],
-                    ]},
-                    {
-                        name: "genres_3",
-                        id: "genres_3",
-                        data: [
-                            [
-                                "Homme",
-                                18.8
-                            ],
-                                                [
-                                "Femme",
-                                21.1
-                            ],
-                        ]},
-                        {
-                            name: "genres_4",
-                            id: "genres_4",
-                            data: [
-                                [
-                                    "Homme",
-                                    4.6
-                                ],
-                                                    [
-                                    "Femme",
-                                    2
-                                ],
-                            ]},
-                
-            ]}
         
     });
+    document.getElementById('export-pdf').addEventListener('click', () =>
+    Highcharts.exportCharts([chart_1, pie_1, pie_2, pie_3, pie_4], {
+        type: 'application/pdf',
+        width:'1080'
+    })
+);
 
 });
 

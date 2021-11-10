@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link href="styles/reset.css" type="text/css" rel="stylesheet">
     <link href="styles/style.css" type="text/css" rel="stylesheet">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
   </head>
   <body>
     <header>
@@ -43,7 +42,7 @@
         </div>
       </div>
       <div class="pie_chart_B13_container">
-        <div class="pie" id="pie_chart_B14" style="width:50%; height:400px;"></div>
+        <div class="pie" id="pie_chart_B14"></div>
         <div class="info_B14 info">
           <ul id="info_1_B14">
             <ol><strong>Renouvellement 28,8 %</strong></ol>
@@ -60,10 +59,10 @@
     </div>
     <div class="pie_container">
       <div class="pie_chart_B13_container">
-        <div id="pie_chart_B15" style="width:100%; height:400px;"></div>
+        <div class="pie" id="pie_chart_B15" style="width:100%; height:400px;"></div>
       </div>
       <div class="pie_chart_B13_container">
-        <div class="pie" id="pie_chart_B16" style="width:50%; height:400px;"></div>
+        <div class="pie" id="pie_chart_B16"></div>
         <div class="info_B16 info">
           <ul id="info_1_B16">
             <ol><strong>Moins de 250 € (16,5 %)</strong></ol>
@@ -83,13 +82,16 @@
           </ul>   
         </div>
       </div>
-      </div>
+    </div>
 
     </div>
 	<footer>
 		<p><a class="link" href="www.fpmm.fr">fpmm.fr</a></p>
+    <button class="link" id="export-pdf">Export to PDF</button>
 	</footer>
   </body>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>  
   <script src="https://code.highcharts.com/modules/drilldown.js"></script>
   <script src="scriptes/app.js"></script>
 </html>
